@@ -5,9 +5,21 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite App</title>
+    <style>
+      body {
+        background-color: #111;
+      }
+
+      canvas {
+        border: 2px solid white;
+      }
+    </style>
   </head>
   <body>
-    <div id="app"></div>
-    <script type="module" src="/main.js"></script>
+    <canvas width="800" height="800"></canvas>
+
+    <button data-start-pause>Start</button>
+
+    <script type="module" src="/main.ts"></script>
   </body>
 </html>
