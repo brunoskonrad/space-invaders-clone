@@ -15,12 +15,12 @@ function createImage() {
 export class Spaceship {
   image: HTMLImageElement = null;
 
-  width = 62;
-  height = 80;
-  position: Vector2 = vec2(0, Renderer.instance.canvas.height - 100);
+  width = 46.5;
+  height = 60;
+  position: Vector2 = vec2(0, Renderer.instance.canvas.height - this.height);
 
-  SPEED: number = 280;
-  acceleration: Vector2 = vec2(0, 0);
+  SPEED: number = 380;
+  direction: Vector2 = vec2(0, 0);
 
   // TODO revisit this implementation
   world: World;
@@ -74,7 +74,7 @@ export class Spaceship {
     const isMovingUp = Input.isActionPressed("move-up");
     const isMovingDown = Input.isActionPressed("move-down");
 
-    this.acceleration = vec2(
+    this.direction = vec2(
       this.getValue(isMovingRight, isMovingLeft),
       this.getValue(isMovingDown, isMovingUp)
     );
@@ -103,6 +103,6 @@ export class Spaceship {
   }
 
   private get speedVector() {
-    return vec2.times(this.acceleration, this.SPEED);
+    return vec2.times(this.direction, this.SPEED);
   }
 }

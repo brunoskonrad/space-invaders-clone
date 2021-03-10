@@ -2,6 +2,7 @@ import { Bullet } from "./Bullet";
 import { GameLoop } from "./core/GameLoop";
 import { Input } from "./core/Input";
 import { Renderer } from "./core/rendering/Renderer";
+import { Enemy } from "./Enemy";
 import { Spaceship } from "./Spaceship";
 
 export class Game extends GameLoop {
@@ -29,6 +30,7 @@ export class World {
 
   constructor() {
     this.entities.push(new Spaceship(this));
+    this.entities.push(new Enemy());
   }
 
   instanciate(entity) {
