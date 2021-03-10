@@ -1,6 +1,6 @@
 import bullet from "../assets/images/laser-bullet.png";
 import { Renderer } from "./core/rendering/Renderer";
-import { sumVectors, vec2 } from "./core/Vector2";
+import { vec2 } from "./core/Vector2";
 
 // TODO extract this logic to reuse it for all sprites
 function createImage() {
@@ -24,7 +24,7 @@ export class Bullet {
   }
 
   update(deltaTime: number) {
-    this.position = sumVectors(this.position, vec2(0, -this.SPEED * deltaTime));
+    this.position = vec2.sum(this.position, vec2(0, -this.SPEED * deltaTime));
   }
 
   render() {

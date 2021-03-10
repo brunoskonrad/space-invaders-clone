@@ -2,7 +2,7 @@ import playerShip from "../assets/images/player-ship.png";
 import { Bullet } from "./Bullet";
 import { Input } from "./core/Input";
 import { Renderer } from "./core/rendering/Renderer";
-import { sumVectors, timesVectors, vec2, Vector2 } from "./core/Vector2";
+import { vec2, Vector2 } from "./core/Vector2";
 import { World } from "./Game";
 
 // TODO extract this logic to reuse it for all sprites
@@ -37,9 +37,9 @@ export class Spaceship {
   update(deltaTime: number) {
     this.handleInput(deltaTime);
 
-    this.position = sumVectors(
+    this.position = vec2.sum(
       this.position,
-      timesVectors(this.speedVector, deltaTime)
+      vec2.times(this.speedVector, deltaTime)
     );
   }
 
@@ -100,6 +100,6 @@ export class Spaceship {
   }
 
   private get speedVector() {
-    return timesVectors(this.acceleration, this.SPEED);
+    return vec2.times(this.acceleration, this.SPEED);
   }
 }
