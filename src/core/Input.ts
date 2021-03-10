@@ -3,12 +3,13 @@ type PressedKeys = { [key: string]: boolean };
 const pressedKeys: PressedKeys = {};
 
 // TODO find a way to de-couple these from this class
-type Action = "move-left" | "move-right" | "move-up" | "move-down";
+type Action = "move-left" | "move-right" | "move-up" | "move-down" | "shoot";
 const ACTION_STATE: { [key in Action]: string[] } = {
   "move-left": ["ArrowLeft", "a"],
   "move-right": ["ArrowRight", "d"],
   "move-up": ["ArrowUp", "w"],
   "move-down": ["ArrowDown", "s"],
+  shoot: [" "],
 };
 
 export class Input {

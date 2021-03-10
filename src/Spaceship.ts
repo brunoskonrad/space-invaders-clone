@@ -1,8 +1,11 @@
 import playerShip from "../assets/images/player-ship.png";
+import { Bullet } from "./Bullet";
 import { Input } from "./core/Input";
 import { Renderer } from "./core/rendering/Renderer";
 import { sumVectors, timesVectors, vec2, Vector2 } from "./core/Vector2";
+import { World } from "./Game";
 
+// TODO extract this logic to reuse it for all sprites
 function createImage() {
   const image = new Image();
   image.src = playerShip;
@@ -19,20 +22,20 @@ export class Spaceship {
   SPEED: number = 280;
   acceleration: Vector2 = vec2(0, 0);
 
-  constructor() {
+  // TODO revisit this implementation
+  world: World;
+
+  // TODO replace for a throttle later
+  private temporaryShootingDelay: number = 1;
+  SHOOTING_DELAY_IN_SECONDS: number = 0.5;
+
+  constructor(world: World) {
     this.image = createImage();
+    this.world = world;
   }
 
   update(deltaTime: number) {
-    const isMovingRight = Input.isActionPressed("move-right");
-    const isMovingLeft = Input.isActionPressed("move-left");
-    const isMovingUp = Input.isActionPressed("move-up");
-    const isMovingDown = Input.isActionPressed("move-down");
-
-    this.acceleration = vec2(
-      this.getValue(isMovingRight, isMovingLeft),
-      this.getValue(isMovingDown, isMovingUp)
-    );
+    this.handleInput(deltaTime);
 
     this.position = sumVectors(
       this.position,
@@ -49,6 +52,38 @@ export class Spaceship {
       this.width,
       this.height
     );
+  }
+
+  shoot() {
+    const bullet = new Bullet();
+    bullet.position = vec2(this.position.x + 37, this.position.y - 15);
+
+    this.world.instanciate(bullet);
+  }
+
+  private handleInput(deltaTime: number) {
+    // TODO throttle shoot
+    this.temporaryShootingDelay += deltaTime;
+
+    // Movement
+    const isMovingRight = Input.isActionPressed("move-right");
+    const isMovingLeft = Input.isActionPressed("move-left");
+    const isMovingUp = Input.isActionPressed("move-up");
+    const isMovingDown = Input.isActionPressed("move-down");
+
+    this.acceleration = vec2(
+      this.getValue(isMovingRight, isMovingLeft),
+      this.getValue(isMovingDown, isMovingUp)
+    );
+
+    // Shooting
+    if (
+      Input.isActionPressed("shoot") &&
+      this.temporaryShootingDelay >= this.SHOOTING_DELAY_IN_SECONDS
+    ) {
+      this.temporaryShootingDelay = 0;
+      this.shoot();
+    }
   }
 
   // TODO this one looks super ugly and probably can be done in a better way

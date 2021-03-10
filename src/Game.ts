@@ -1,24 +1,37 @@
+import { Bullet } from "./Bullet";
 import { GameLoop } from "./core/GameLoop";
 import { Input } from "./core/Input";
 import { Renderer } from "./core/rendering/Renderer";
 import { Spaceship } from "./Spaceship";
 
 export class Game extends GameLoop {
-  entities: any[] = [];
+  world: World;
 
   constructor() {
     super();
 
     Input.init();
-    this.entities.push(new Spaceship());
+    this.world = new World();
   }
 
   update(deltaTime: number) {
-    this.entities.forEach((entity) => entity.update(deltaTime));
+    this.world.entities.forEach((entity) => entity.update(deltaTime));
   }
 
   render() {
     Renderer.instance.clear();
-    this.entities.forEach((entity) => entity.render());
+    this.world.entities.forEach((entity) => entity.render());
+  }
+}
+
+export class World {
+  entities: any[] = [];
+
+  constructor() {
+    this.entities.push(new Spaceship(this));
+  }
+
+  instanciate(entity) {
+    this.entities.push(entity);
   }
 }
