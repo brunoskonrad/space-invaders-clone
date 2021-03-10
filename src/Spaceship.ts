@@ -15,8 +15,8 @@ function createImage() {
 export class Spaceship {
   image: HTMLImageElement = null;
 
-  width = 100;
-  height = 100;
+  width = 62;
+  height = 80;
   position: Vector2 = vec2(0, Renderer.instance.canvas.height - 100);
 
   SPEED: number = 280;
@@ -56,7 +56,10 @@ export class Spaceship {
 
   shoot() {
     const bullet = new Bullet();
-    bullet.position = vec2(this.position.x + 37, this.position.y - 15);
+    bullet.position = vec2(
+      this.position.x + this.width / 2 - 3, // TODO why?
+      this.position.y - 15
+    );
 
     this.world.instanciate(bullet);
   }
