@@ -1,4 +1,6 @@
 import enemy from "../assets/images/enemy-1.png";
+import { Collider2D } from "./core/Collider2D";
+import { Entity } from "./core/Entity";
 import { Renderer } from "./core/rendering/Renderer";
 import { vec2, Vector2 } from "./core/Vector2";
 
@@ -9,18 +11,22 @@ function createImage() {
   return image;
 }
 
-export class Enemy {
+export class Enemy extends Entity {
   image: HTMLImageElement = null;
 
   width = 40;
-  heigth = 40;
-  position: Vector2 = vec2(30, 0);
+  height = 40;
+  position: Vector2 = vec2(10, 600);
+
+  collider = new Collider2D(this);
 
   // TODO work on speeds later
-  SPEED: number = 200;
-  direction: Vector2 = vec2(0, 1);
+  SPEED: number = 300;
+  direction: Vector2 = vec2(0, 0);
 
   constructor() {
+    super();
+
     this.image = createImage();
   }
 
@@ -37,7 +43,7 @@ export class Enemy {
       this.position.x,
       this.position.y,
       this.width,
-      this.heigth
+      this.height
     );
   }
 }

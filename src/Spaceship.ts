@@ -1,5 +1,7 @@
 import playerShip from "../assets/images/player-ship.png";
 import { Bullet } from "./Bullet";
+import { Collider2D } from "./core/Collider2D";
+import { Entity } from "./core/Entity";
 import { Input } from "./core/Input";
 import { Renderer } from "./core/rendering/Renderer";
 import { vec2, Vector2 } from "./core/Vector2";
@@ -12,12 +14,14 @@ function createImage() {
   return image;
 }
 
-export class Spaceship {
+export class Spaceship extends Entity {
   image: HTMLImageElement = null;
 
   width = 46.5;
   height = 60;
   position: Vector2 = vec2(0, Renderer.instance.canvas.height - this.height);
+
+  collider = new Collider2D(this);
 
   SPEED: number = 380;
   direction: Vector2 = vec2(0, 0);
@@ -30,6 +34,8 @@ export class Spaceship {
   SHOOTING_DELAY_IN_SECONDS: number = 0.5;
 
   constructor(world: World) {
+    super();
+
     this.image = createImage();
     this.world = world;
   }
@@ -55,10 +61,10 @@ export class Spaceship {
   }
 
   shoot() {
-    const bullet = new Bullet();
+    const bullet = new Bullet(this.world);
     bullet.position = vec2(
       this.position.x + this.width / 2 - 3, // TODO why?
-      this.position.y - 15
+      this.position.y - 38
     );
 
     this.world.instanciate(bullet);

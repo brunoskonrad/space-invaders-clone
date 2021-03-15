@@ -1,9 +1,7 @@
-import { Bullet } from "./Bullet";
 import { GameLoop } from "./core/GameLoop";
 import { Input } from "./core/Input";
 import { Renderer } from "./core/rendering/Renderer";
-import { Enemy } from "./Enemy";
-import { Spaceship } from "./Spaceship";
+import { World } from "./World";
 
 export class Game extends GameLoop {
   world: World;
@@ -16,24 +14,22 @@ export class Game extends GameLoop {
   }
 
   update(deltaTime: number) {
+    // Collision detection
+    this.world.collidableEntites.forEach((a) => {
+      this.world.collidableEntites.forEach((b) => {
+        if (a !== b) {
+          if (a.collider.detectCollision(b.collider)) {
+            a.onCollide ? a.onCollide(b.collider) : null;
+          }
+        }
+      });
+    });
+
     this.world.entities.forEach((entity) => entity.update(deltaTime));
   }
 
   render() {
     Renderer.instance.clear();
     this.world.entities.forEach((entity) => entity.render());
-  }
-}
-
-export class World {
-  entities: any[] = [];
-
-  constructor() {
-    this.entities.push(new Spaceship(this));
-    this.entities.push(new Enemy());
-  }
-
-  instanciate(entity) {
-    this.entities.push(entity);
   }
 }
