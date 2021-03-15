@@ -22,13 +22,11 @@ export class Bullet extends Entity {
   SPEED = 600;
 
   collider = new Collider2D(this);
-  world: World = null;
 
   constructor(world: World) {
-    super();
+    super(world);
 
     this.image = createImage();
-    this.world = world;
   }
 
   update(deltaTime: number) {
@@ -52,6 +50,7 @@ export class Bullet extends Entity {
   onCollide(b: Collider2D) {
     if (b.parent.type === "Enemy") {
       this.world.destroy(this);
+      b.parent.die();
     }
   }
 }

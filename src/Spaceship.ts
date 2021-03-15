@@ -19,22 +19,22 @@ export class Spaceship extends Entity {
 
   width = 46.5;
   height = 60;
-  position: Vector2 = vec2(0, Renderer.instance.canvas.height - this.height);
+  position: Vector2 = vec2(
+    Renderer.instance.canvas.width / 2 - this.width,
+    Renderer.instance.canvas.height - this.height
+  );
 
   collider = new Collider2D(this);
 
   SPEED: number = 380;
   direction: Vector2 = vec2(0, 0);
 
-  // TODO revisit this implementation
-  world: World;
-
   // TODO replace for a throttle later
   private temporaryShootingDelay: number = 1;
   SHOOTING_DELAY_IN_SECONDS: number = 0.5;
 
   constructor(world: World) {
-    super();
+    super(world);
 
     this.image = createImage();
     this.world = world;

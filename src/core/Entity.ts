@@ -1,3 +1,4 @@
+import { World } from "../World";
 import { vec2, Vector2 } from "./Vector2";
 
 let interation = 0;
@@ -15,12 +16,15 @@ export interface Viewport {
 export class Entity implements Viewport {
   id: string;
 
+  protected world: World;
+
   width = 0;
   height = 0;
   position: Vector2 = vec2(0, 0);
 
-  constructor() {
+  constructor(world: World) {
     this.id = this.type + "_" + nextNumber();
+    this.world = world;
   }
 
   get type(): string {
