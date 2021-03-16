@@ -5,7 +5,7 @@ import { Entity } from "./core/Entity";
 import { Input } from "./core/Input";
 import { Renderer } from "./core/rendering/Renderer";
 import { vec2, Vector2 } from "./core/Vector2";
-import { World } from "./Game";
+import { World } from "./World";
 
 // TODO extract this logic to reuse it for all sprites
 function createImage() {

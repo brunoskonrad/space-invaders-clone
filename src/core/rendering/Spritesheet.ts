@@ -65,8 +65,8 @@ export class Spritesheet {
       this.size,
       this.parent.position.x,
       this.parent.position.y,
-      this.size,
-      this.size
+      this.parent.width,
+      this.parent.height
     );
   }
 
