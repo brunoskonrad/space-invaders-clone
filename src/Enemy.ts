@@ -58,6 +58,12 @@ export class Enemy extends Entity {
         this.position,
         vec2.times(this.direction, this.SPEED * deltaTime)
       );
+
+      // When enemy goes out of screen
+      if (this.position.y >= Renderer.instance.canvas.height + 10) {
+        this.world.destroy(this);
+        document.dispatchEvent(new CustomEvent("aliens-out-of-screen"));
+      }
     }
   }
 

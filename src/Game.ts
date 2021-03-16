@@ -13,6 +13,10 @@ export class Game extends GameLoop {
     this.world = new World();
 
     window.world = this.world;
+
+    document.addEventListener("game-over", () => {
+      alert("You lost");
+    });
   }
 
   update(deltaTime: number) {

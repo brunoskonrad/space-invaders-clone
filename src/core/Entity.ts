@@ -26,7 +26,11 @@ export class Entity implements Viewport {
     this.id = this.type + "_" + nextNumber();
     this.world = world;
 
-    this.init();
+    // TODO this is a huge hack please find a better fix later
+    // or perhaps this one is the fix already :D
+    setTimeout(() => {
+      this.init();
+    }, 100);
   }
 
   init() {}

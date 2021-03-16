@@ -3,6 +3,7 @@ import { Collider2D } from "./core/Collider2D";
 import { Entity } from "./core/Entity";
 import { Renderer } from "./core/rendering/Renderer";
 import { vec2 } from "./core/Vector2";
+import { Enemy } from "./Enemy";
 import { World } from "./World";
 
 // TODO extract this logic to reuse it for all sprites
@@ -49,10 +50,12 @@ export class Bullet extends Entity {
     );
   }
 
+  // TODO make it typeable for other entities
   onCollide(b: Collider2D) {
     if (b.parent.type === "Enemy") {
       this.world.destroy(this);
-      b.parent.die();
+
+      (b.parent as Enemy).die();
 
       document.dispatchEvent(new CustomEvent("alient-hit"));
     }

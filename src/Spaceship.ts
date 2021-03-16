@@ -5,6 +5,7 @@ import { Entity } from "./core/Entity";
 import { Input } from "./core/Input";
 import { Renderer } from "./core/rendering/Renderer";
 import { vec2, Vector2 } from "./core/Vector2";
+import { Enemy } from "./Enemy";
 import { World } from "./World";
 
 // TODO extract this logic to reuse it for all sprites
@@ -92,6 +93,20 @@ export class Spaceship extends Entity {
     ) {
       this.temporaryShootingDelay = 0;
       this.shoot();
+    }
+  }
+
+  onCollide(b: Collider2D) {
+    console.log("COLLIDED", b.parent.type);
+
+    if (b.parent.type === "Enemy") {
+      (b.parent as Enemy).die();
+      // TODO omg this is a huge hack again but I can buy some time
+      // Before implementing a more sophisticated physics engine lol
+      this.position = vec2.sum(this.position, vec2(0, 20));
+
+      // TODO put it back when collisions resolutions are fixed
+      // document.dispatchEvent(new CustomEvent("player-damage"));
     }
   }
 

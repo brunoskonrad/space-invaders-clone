@@ -1,6 +1,7 @@
 import { Renderer } from "./core/rendering/Renderer";
 import { vec2 } from "./core/Vector2";
 import { Enemy } from "./Enemy";
+import { Life } from "./Life";
 import { ScoreText } from "./ScoreText";
 import { Spaceship } from "./Spaceship";
 
@@ -28,6 +29,7 @@ export class World {
     }
 
     this.entities.push(new ScoreText(this));
+    this.entities.push(new Life(this));
   }
 
   instanciate(entity) {
