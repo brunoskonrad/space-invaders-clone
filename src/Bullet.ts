@@ -26,6 +26,8 @@ export class Bullet extends Entity {
   constructor(world: World) {
     super(world);
 
+    // TODO check why this one exploded on terminal
+    // when calling inside "init"
     this.image = createImage();
   }
 
@@ -51,6 +53,8 @@ export class Bullet extends Entity {
     if (b.parent.type === "Enemy") {
       this.world.destroy(this);
       b.parent.die();
+
+      document.dispatchEvent(new CustomEvent("alient-hit"));
     }
   }
 }

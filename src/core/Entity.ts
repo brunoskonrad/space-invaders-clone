@@ -25,7 +25,17 @@ export class Entity implements Viewport {
   constructor(world: World) {
     this.id = this.type + "_" + nextNumber();
     this.world = world;
+
+    this.init();
   }
+
+  init() {}
+
+  unmount() {}
+
+  update(_deltaTime: number) {}
+
+  render() {}
 
   get type(): string {
     return this.constructor.name;

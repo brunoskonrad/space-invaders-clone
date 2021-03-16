@@ -11,10 +11,12 @@ export class Game extends GameLoop {
 
     Input.init();
     this.world = new World();
+
+    window.world = this.world;
   }
 
   update(deltaTime: number) {
-    // Collision detection
+    // TODO: move collision detection to another place
     this.world.collidableEntites.forEach((a) => {
       this.world.collidableEntites.forEach((b) => {
         if (a !== b) {
