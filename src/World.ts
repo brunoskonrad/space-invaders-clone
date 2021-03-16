@@ -1,9 +1,7 @@
-import { Renderer } from "./core/rendering/Renderer";
-import { vec2 } from "./core/Vector2";
-import { Enemy } from "./Enemy";
 import { Life } from "./Life";
 import { ScoreText } from "./ScoreText";
 import { Spaceship } from "./Spaceship";
+import { wave } from "./Wave";
 
 export class World {
   entities: any[] = [];
@@ -13,20 +11,11 @@ export class World {
   constructor() {
     this.entities.push(new Spaceship(this));
 
-    // First wave
-    for (let i = 1; i <= 5; i++) {
-      const enemy = new Enemy(this);
-
-      enemy.position = vec2(
-        Math.min(
-          Math.random() * Renderer.instance.canvas.width,
-          Renderer.instance.canvas.width - 40
-        ),
-        -200 * i
-      );
-
-      this.entities.push(enemy);
-    }
+    // Simple wave system to let me code more mechanics
+    wave(this, 5);
+    setInterval(() => {
+      wave(this, 5);
+    }, 8000);
 
     this.entities.push(new ScoreText(this));
     this.entities.push(new Life(this));

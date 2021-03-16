@@ -56,7 +56,6 @@ export class Spritesheet {
   }
 
   render() {
-    console.log("***", this.size, this.steps);
     Renderer.instance.context.drawImage(
       this.image,
       this.currentFrame * this.size,
